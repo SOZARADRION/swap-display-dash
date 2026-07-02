@@ -14,7 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      equipment_requests: {
+        Row: {
+          client_name: string
+          client_type: Database["public"]["Enums"]["client_type"]
+          contract_manager: string
+          contract_number: string
+          created_at: string
+          created_by: string | null
+          equipment: string
+          id: string
+          status: Database["public"]["Enums"]["request_status"]
+          updated_at: string
+        }
+        Insert: {
+          client_name: string
+          client_type: Database["public"]["Enums"]["client_type"]
+          contract_manager: string
+          contract_number: string
+          created_at?: string
+          created_by?: string | null
+          equipment: string
+          id?: string
+          status?: Database["public"]["Enums"]["request_status"]
+          updated_at?: string
+        }
+        Update: {
+          client_name?: string
+          client_type?: Database["public"]["Enums"]["client_type"]
+          contract_manager?: string
+          contract_number?: string
+          created_at?: string
+          created_by?: string | null
+          equipment?: string
+          id?: string
+          status?: Database["public"]["Enums"]["request_status"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +61,8 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      client_type: "PF" | "PJ"
+      request_status: "pendente" | "em_andamento" | "concluido"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +189,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      client_type: ["PF", "PJ"],
+      request_status: ["pendente", "em_andamento", "concluido"],
+    },
   },
 } as const
