@@ -64,8 +64,9 @@ function Gerenciar() {
     <div className="min-h-screen bg-muted/30 p-4">
       <div className="mx-auto max-w-5xl">
         <div className="flex justify-between items-center mb-4">
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
             <Button asChild variant="ghost"><Link to="/">← Monitor</Link></Button>
+            <Button asChild variant="ghost"><Link to="/historico">Histórico</Link></Button>
             <Button asChild><Link to="/novo">+ Novo</Link></Button>
           </div>
           <Button variant="ghost" onClick={handleSignOut}>Sair</Button>

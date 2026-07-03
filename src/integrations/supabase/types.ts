@@ -14,6 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
+      equipment_request_audit: {
+        Row: {
+          action: string
+          actor_email: string | null
+          actor_id: string | null
+          created_at: string
+          id: string
+          new_status: Database["public"]["Enums"]["request_status"] | null
+          old_status: Database["public"]["Enums"]["request_status"] | null
+          request_id: string
+          snapshot: Json | null
+        }
+        Insert: {
+          action: string
+          actor_email?: string | null
+          actor_id?: string | null
+          created_at?: string
+          id?: string
+          new_status?: Database["public"]["Enums"]["request_status"] | null
+          old_status?: Database["public"]["Enums"]["request_status"] | null
+          request_id: string
+          snapshot?: Json | null
+        }
+        Update: {
+          action?: string
+          actor_email?: string | null
+          actor_id?: string | null
+          created_at?: string
+          id?: string
+          new_status?: Database["public"]["Enums"]["request_status"] | null
+          old_status?: Database["public"]["Enums"]["request_status"] | null
+          request_id?: string
+          snapshot?: Json | null
+        }
+        Relationships: []
+      }
       equipment_requests: {
         Row: {
           client_name: string

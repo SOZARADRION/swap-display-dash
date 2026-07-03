@@ -82,6 +82,7 @@ function Monitor() {
               <>
                 <Button asChild variant="outline"><Link to="/novo">Novo pedido</Link></Button>
                 <Button asChild variant="ghost"><Link to="/gerenciar">Gerenciar</Link></Button>
+                <Button asChild variant="ghost"><Link to="/historico">Histórico</Link></Button>
               </>
             ) : (
               <Button asChild><Link to="/auth">Entrar</Link></Button>
