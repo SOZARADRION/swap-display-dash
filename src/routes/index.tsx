@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Clock, Wrench, CheckCircle2, Building2, User } from "lucide-react";
+import { Clock, Wrench, CheckCircle2, Building2, User, Volume2, VolumeX } from "lucide-react";
 
 type Request = {
   id: string;
