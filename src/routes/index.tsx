@@ -39,14 +39,53 @@ function Monitor() {
   const [requests, setRequests] = useState<Request[]>([]);
   const [authed, setAuthed] = useState(false);
 
+  const [soundOn, setSoundOn] = useState(true);
+
+  const playBeep = () => {
+    try {
+      const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      const ctx = new AudioCtx();
+      const now = ctx.currentTime;
+      const notes = [880, 1175]; // A5, D6 - "ding"
+      notes.forEach((freq, i) => {
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.type = "sine";
+        o.frequency.value = freq;
+        const start = now + i * 0.12;
+        g.gain.setValueAtTime(0, start);
+        g.gain.linearRampToValueAtTime(0.25, start + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, start + 0.35);
+        o.connect(g).connect(ctx.destination);
+        o.start(start);
+        o.stop(start + 0.4);
+      });
+      setTimeout(() => ctx.close(), 900);
+    } catch (e) {
+      console.warn("Audio failed", e);
+    }
+  };
+
   useEffect(() => {
     let mounted = true;
+    let firstLoad = true;
+    const knownIds = new Set<string>();
     const load = async () => {
       const { data } = await supabase
         .from("equipment_requests")
         .select("*")
         .order("created_at", { ascending: false });
-      if (mounted && data) setRequests(data as Request[]);
+      if (mounted && data) {
+        const rows = data as Request[];
+        if (!firstLoad && soundOn) {
+          const hasNew = rows.some((r) => !knownIds.has(r.id));
+          if (hasNew) playBeep();
+        }
+        knownIds.clear();
+        rows.forEach((r) => knownIds.add(r.id));
+        firstLoad = false;
+        setRequests(rows);
+      }
     };
     load();
 
@@ -67,7 +106,8 @@ function Monitor() {
       supabase.removeChannel(channel);
       sub.subscription.unsubscribe();
     };
-  }, []);
+  }, [soundOn]);
+
 
   return (
     <div className="min-h-screen bg-background">
