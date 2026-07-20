@@ -24,6 +24,7 @@ export type Database = {
           new_status: Database["public"]["Enums"]["request_status"] | null
           old_status: Database["public"]["Enums"]["request_status"] | null
           request_id: string
+          request_type: Database["public"]["Enums"]["request_kind"] | null
           snapshot: Json | null
         }
         Insert: {
@@ -35,6 +36,7 @@ export type Database = {
           new_status?: Database["public"]["Enums"]["request_status"] | null
           old_status?: Database["public"]["Enums"]["request_status"] | null
           request_id: string
+          request_type?: Database["public"]["Enums"]["request_kind"] | null
           snapshot?: Json | null
         }
         Update: {
@@ -46,6 +48,7 @@ export type Database = {
           new_status?: Database["public"]["Enums"]["request_status"] | null
           old_status?: Database["public"]["Enums"]["request_status"] | null
           request_id?: string
+          request_type?: Database["public"]["Enums"]["request_kind"] | null
           snapshot?: Json | null
         }
         Relationships: []
@@ -60,6 +63,7 @@ export type Database = {
           created_by: string | null
           equipment: string
           id: string
+          request_type: Database["public"]["Enums"]["request_kind"]
           status: Database["public"]["Enums"]["request_status"]
           updated_at: string
         }
@@ -72,6 +76,7 @@ export type Database = {
           created_by?: string | null
           equipment: string
           id?: string
+          request_type?: Database["public"]["Enums"]["request_kind"]
           status?: Database["public"]["Enums"]["request_status"]
           updated_at?: string
         }
@@ -84,6 +89,7 @@ export type Database = {
           created_by?: string | null
           equipment?: string
           id?: string
+          request_type?: Database["public"]["Enums"]["request_kind"]
           status?: Database["public"]["Enums"]["request_status"]
           updated_at?: string
         }
@@ -98,6 +104,7 @@ export type Database = {
     }
     Enums: {
       client_type: "PF" | "PJ"
+      request_kind: "troca" | "aluguel"
       request_status: "pendente" | "em_andamento" | "concluido"
     }
     CompositeTypes: {
@@ -227,6 +234,7 @@ export const Constants = {
   public: {
     Enums: {
       client_type: ["PF", "PJ"],
+      request_kind: ["troca", "aluguel"],
       request_status: ["pendente", "em_andamento", "concluido"],
     },
   },
