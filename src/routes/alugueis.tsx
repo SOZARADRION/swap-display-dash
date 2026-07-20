@@ -31,7 +31,7 @@ export const Route = createFileRoute("/alugueis")({
 
 const COLUMNS = [
   { key: "pendente", label: "Pendente", icon: Clock, color: "text-amber-500" },
-  { key: "em_andamento", label: "Em envio", icon: Truck, color: "text-blue-500" },
+  { key: "em_andamento", label: "Em separação", icon: Truck, color: "text-blue-500" },
   { key: "concluido", label: "Entregue", icon: CheckCircle2, color: "text-emerald-500" },
 ] as const;
 
