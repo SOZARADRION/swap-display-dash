@@ -16,6 +16,7 @@ type Request = {
   contract_number: string;
   equipment: string;
   status: "pendente" | "em_andamento" | "concluido";
+  request_type: "troca" | "aluguel";
   created_at: string;
 };
 
@@ -77,9 +78,12 @@ function Gerenciar() {
           {items.map((r) => (
             <Card key={r.id} className="p-4 flex flex-col md:flex-row md:items-center gap-4">
               <div className="flex-1">
-                <div className="flex items-center gap-2 font-semibold">
+                <div className="flex items-center gap-2 font-semibold flex-wrap">
                   {r.client_name}
                   <Badge variant="outline">{r.client_type}</Badge>
+                  <Badge variant={r.request_type === "aluguel" ? "default" : "secondary"}>
+                    {r.request_type === "aluguel" ? "Aluguel" : "Troca"}
+                  </Badge>
                 </div>
                 <div className="text-sm text-muted-foreground">
                   {r.equipment} • Contrato #{r.contract_number} • {r.contract_manager}

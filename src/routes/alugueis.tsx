@@ -1,10 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import type { Database } from "@/integrations/supabase/types";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Clock, Wrench, CheckCircle2, Building2, User, Volume2, VolumeX } from "lucide-react";
+import { Clock, Truck, CheckCircle2, Building2, User, Volume2, VolumeX } from "lucide-react";
 
 type Request = {
   id: string;
@@ -14,31 +13,31 @@ type Request = {
   contract_number: string;
   equipment: string;
   status: "pendente" | "em_andamento" | "concluido";
+  request_type: "troca" | "aluguel";
   created_at: string;
 };
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/alugueis")({
   head: () => ({
     meta: [
-      { title: "Monitor de Pedidos de Troca de Equipamentos" },
-      { name: "description", content: "Acompanhe em tempo real os pedidos de troca de equipamentos da empresa." },
-      { property: "og:title", content: "Monitor de Pedidos de Troca" },
-      { property: "og:description", content: "Kanban em tempo real dos pedidos de troca de equipamentos." },
+      { title: "Monitor de Envio de Equipamentos para Aluguel" },
+      { name: "description", content: "Acompanhe em tempo real os pedidos de envio de equipamentos para aluguel." },
+      { property: "og:title", content: "Monitor de Aluguéis" },
+      { property: "og:description", content: "Kanban em tempo real dos envios de equipamentos para aluguel." },
     ],
   }),
-  component: Monitor,
+  component: MonitorAlugueis,
 });
 
 const COLUMNS = [
   { key: "pendente", label: "Pendente", icon: Clock, color: "text-amber-500" },
-  { key: "em_andamento", label: "Em andamento", icon: Wrench, color: "text-blue-500" },
-  { key: "concluido", label: "Concluído", icon: CheckCircle2, color: "text-emerald-500" },
+  { key: "em_andamento", label: "Em envio", icon: Truck, color: "text-blue-500" },
+  { key: "concluido", label: "Entregue", icon: CheckCircle2, color: "text-emerald-500" },
 ] as const;
 
-function Monitor() {
+function MonitorAlugueis() {
   const [requests, setRequests] = useState<Request[]>([]);
   const [authed, setAuthed] = useState(false);
-
   const [soundOn, setSoundOn] = useState(true);
 
   const playBeep = () => {
@@ -46,7 +45,7 @@ function Monitor() {
       const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
       const ctx = new AudioCtx();
       const now = ctx.currentTime;
-      const notes = [880, 1175]; // A5, D6 - "ding"
+      const notes = [740, 988];
       notes.forEach((freq, i) => {
         const o = ctx.createOscillator();
         const g = ctx.createGain();
@@ -74,7 +73,7 @@ function Monitor() {
       const { data } = await supabase
         .from("equipment_requests")
         .select("*")
-        .eq("request_type", "troca")
+        .eq("request_type", "aluguel")
         .order("created_at", { ascending: false });
       if (mounted && data) {
         const rows = data as Request[];
@@ -94,7 +93,7 @@ function Monitor() {
     const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setAuthed(!!s));
 
     const channel = supabase
-      .channel("equipment_requests_monitor")
+      .channel("equipment_requests_alugueis_monitor")
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "equipment_requests" },
@@ -109,13 +108,12 @@ function Monitor() {
     };
   }, [soundOn]);
 
-
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b bg-card">
         <div className="mx-auto max-w-[1800px] px-6 py-4 flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight">Pedidos de Troca de Equipamentos</h1>
+            <h1 className="text-2xl font-bold tracking-tight">Envio de Equipamentos para Aluguel</h1>
             <p className="text-sm text-muted-foreground">Monitor em tempo real</p>
           </div>
           <div className="flex gap-2 items-center">
@@ -133,8 +131,7 @@ function Monitor() {
             >
               {soundOn ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
             </Button>
-
-            <Button asChild variant="ghost"><Link to="/alugueis">Aluguéis</Link></Button>
+            <Button asChild variant="ghost"><Link to="/">Trocas</Link></Button>
             {authed ? (
               <>
                 <Button asChild variant="outline"><Link to="/novo">Novo pedido</Link></Button>
