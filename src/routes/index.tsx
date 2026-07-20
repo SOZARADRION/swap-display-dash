@@ -117,7 +117,22 @@ function Monitor() {
             <h1 className="text-2xl font-bold tracking-tight">Pedidos de Troca de Equipamentos</h1>
             <p className="text-sm text-muted-foreground">Monitor em tempo real</p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => {
+                setSoundOn((v) => {
+                  const next = !v;
+                  if (next) playBeep();
+                  return next;
+                });
+              }}
+              title={soundOn ? "Som ligado" : "Som desligado"}
+            >
+              {soundOn ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
+            </Button>
+
             {authed ? (
               <>
                 <Button asChild variant="outline"><Link to="/novo">Novo pedido</Link></Button>
