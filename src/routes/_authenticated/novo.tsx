@@ -12,6 +12,7 @@ import { z } from "zod";
 const schema = z.object({
   client_name: z.string().trim().min(1).max(120),
   client_type: z.enum(["PF", "PJ"]),
+  request_type: z.enum(["troca", "aluguel"]),
   contract_manager: z.string().trim().min(1).max(120),
   contract_number: z.string().trim().min(1).max(60),
   equipment: z.string().trim().min(1).max(200),
@@ -28,6 +29,7 @@ function NovoPedido() {
   const [form, setForm] = useState({
     client_name: "",
     client_type: "PJ" as "PF" | "PJ",
+    request_type: "troca" as "troca" | "aluguel",
     contract_manager: "",
     contract_number: "",
     equipment: "",
@@ -69,11 +71,26 @@ function NovoPedido() {
         </div>
         <Card>
           <CardHeader>
-            <CardTitle>Novo pedido de troca</CardTitle>
-            <CardDescription>Preencha os dados do equipamento a ser trocado.</CardDescription>
+            <CardTitle>Novo pedido</CardTitle>
+            <CardDescription>Preencha os dados do pedido (troca ou envio para aluguel).</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <Label>Tipo de pedido</Label>
+                <RadioGroup
+                  value={form.request_type}
+                  onValueChange={(v) => setForm({ ...form, request_type: v as "troca" | "aluguel" })}
+                  className="flex gap-6 mt-2"
+                >
+                  <div className="flex items-center gap-2">
+                    <RadioGroupItem value="troca" id="rt-troca" /><Label htmlFor="rt-troca">Troca</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <RadioGroupItem value="aluguel" id="rt-aluguel" /><Label htmlFor="rt-aluguel">Aluguel</Label>
+                  </div>
+                </RadioGroup>
+              </div>
               <div>
                 <Label htmlFor="client_name">Nome do cliente</Label>
                 <Input id="client_name" required maxLength={120} value={form.client_name}

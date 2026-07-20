@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AlugueisRouteImport } from './routes/alugueis'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedNovoRouteImport } from './routes/_authenticated/novo'
@@ -19,6 +20,11 @@ import { Route as AuthenticatedGerenciarRouteImport } from './routes/_authentica
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AlugueisRoute = AlugueisRouteImport.update({
+  id: '/alugueis',
+  path: '/alugueis',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
@@ -48,6 +54,7 @@ const AuthenticatedGerenciarRoute = AuthenticatedGerenciarRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/alugueis': typeof AlugueisRoute
   '/auth': typeof AuthRoute
   '/gerenciar': typeof AuthenticatedGerenciarRoute
   '/historico': typeof AuthenticatedHistoricoRoute
@@ -55,6 +62,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/alugueis': typeof AlugueisRoute
   '/auth': typeof AuthRoute
   '/gerenciar': typeof AuthenticatedGerenciarRoute
   '/historico': typeof AuthenticatedHistoricoRoute
@@ -64,6 +72,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/alugueis': typeof AlugueisRoute
   '/auth': typeof AuthRoute
   '/_authenticated/gerenciar': typeof AuthenticatedGerenciarRoute
   '/_authenticated/historico': typeof AuthenticatedHistoricoRoute
@@ -71,13 +80,14 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/gerenciar' | '/historico' | '/novo'
+  fullPaths: '/' | '/alugueis' | '/auth' | '/gerenciar' | '/historico' | '/novo'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/gerenciar' | '/historico' | '/novo'
+  to: '/' | '/alugueis' | '/auth' | '/gerenciar' | '/historico' | '/novo'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
+    | '/alugueis'
     | '/auth'
     | '/_authenticated/gerenciar'
     | '/_authenticated/historico'
@@ -87,6 +97,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AlugueisRoute: typeof AlugueisRoute
   AuthRoute: typeof AuthRoute
 }
 
@@ -97,6 +108,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/alugueis': {
+      id: '/alugueis'
+      path: '/alugueis'
+      fullPath: '/alugueis'
+      preLoaderRoute: typeof AlugueisRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -155,18 +173,9 @@ const AuthenticatedRouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AlugueisRoute: AlugueisRoute,
   AuthRoute: AuthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
