@@ -9,17 +9,21 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AlugueisRouteImport } from './routes/alugueis'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthenticatedNovoRouteImport } from './routes/_authenticated/novo'
-import { Route as AuthenticatedHistoricoRouteImport } from './routes/_authenticated/historico'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AlugueisRouteImport } from './routes/alugueis'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedGerenciarRouteImport } from './routes/_authenticated/gerenciar'
+import { Route as AuthenticatedHistoricoRouteImport } from './routes/_authenticated/historico'
+import { Route as AuthenticatedNovoRouteImport } from './routes/_authenticated/novo'
 
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AlugueisRoute = AlugueisRouteImport.update({
@@ -27,18 +31,14 @@ const AlugueisRoute = AlugueisRouteImport.update({
   path: '/alugueis',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedNovoRoute = AuthenticatedNovoRouteImport.update({
-  id: '/novo',
-  path: '/novo',
+const AuthenticatedGerenciarRoute = AuthenticatedGerenciarRouteImport.update({
+  id: '/gerenciar',
+  path: '/gerenciar',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedHistoricoRoute = AuthenticatedHistoricoRouteImport.update({
@@ -46,9 +46,9 @@ const AuthenticatedHistoricoRoute = AuthenticatedHistoricoRouteImport.update({
   path: '/historico',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedGerenciarRoute = AuthenticatedGerenciarRouteImport.update({
-  id: '/gerenciar',
-  path: '/gerenciar',
+const AuthenticatedNovoRoute = AuthenticatedNovoRouteImport.update({
+  id: '/novo',
+  path: '/novo',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 
@@ -103,18 +103,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/alugueis': {
-      id: '/alugueis'
-      path: '/alugueis'
-      fullPath: '/alugueis'
-      preLoaderRoute: typeof AlugueisRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -124,18 +117,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/alugueis': {
+      id: '/alugueis'
+      path: '/alugueis'
+      fullPath: '/alugueis'
+      preLoaderRoute: typeof AlugueisRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/novo': {
-      id: '/_authenticated/novo'
-      path: '/novo'
-      fullPath: '/novo'
-      preLoaderRoute: typeof AuthenticatedNovoRouteImport
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/gerenciar': {
+      id: '/_authenticated/gerenciar'
+      path: '/gerenciar'
+      fullPath: '/gerenciar'
+      preLoaderRoute: typeof AuthenticatedGerenciarRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/historico': {
@@ -145,11 +145,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedHistoricoRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/gerenciar': {
-      id: '/_authenticated/gerenciar'
-      path: '/gerenciar'
-      fullPath: '/gerenciar'
-      preLoaderRoute: typeof AuthenticatedGerenciarRouteImport
+    '/_authenticated/novo': {
+      id: '/_authenticated/novo'
+      path: '/novo'
+      fullPath: '/novo'
+      preLoaderRoute: typeof AuthenticatedNovoRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
   }
@@ -179,3 +179,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
