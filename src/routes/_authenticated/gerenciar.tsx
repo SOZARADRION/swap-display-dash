@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -22,6 +22,9 @@ type Request = {
 
 export const Route = createFileRoute("/_authenticated/gerenciar")({
   head: () => ({ meta: [{ title: "Gerenciar Pedidos" }] }),
+  beforeLoad: ({ context }) => {
+    if (context.role !== "admin") throw redirect({ to: "/" });
+  },
   component: Gerenciar,
 });
 

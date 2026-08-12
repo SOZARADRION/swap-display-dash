@@ -14,6 +14,24 @@ export type Database = {
   }
   public: {
     Tables: {
+      user_roles: {
+        Row: {
+          created_at: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
       equipment_request_audit: {
         Row: {
           action: string
@@ -103,6 +121,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
+      app_role: "admin" | "tecnico"
       client_type: "PF" | "PJ"
       request_kind: "troca" | "aluguel"
       request_status: "pendente" | "em_andamento" | "concluido"
@@ -233,6 +252,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      app_role: ["admin", "tecnico"],
       client_type: ["PF", "PJ"],
       request_kind: ["troca", "aluguel"],
       request_status: ["pendente", "em_andamento", "concluido"],
