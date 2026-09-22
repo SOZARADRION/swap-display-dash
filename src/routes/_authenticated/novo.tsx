@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -20,6 +20,9 @@ const schema = z.object({
 
 export const Route = createFileRoute("/_authenticated/novo")({
   head: () => ({ meta: [{ title: "Novo Pedido — Troca de Equipamentos" }] }),
+  beforeLoad: ({ context }) => {
+    if (context.role !== "admin") throw redirect({ to: "/" });
+  },
   component: NovoPedido,
 });
 
