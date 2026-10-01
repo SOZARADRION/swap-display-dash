@@ -2,11 +2,10 @@ import { fileURLToPath } from "node:url";
 import tailwindcss from "@tailwindcss/vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
-import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
 import tsConfigPaths from "vite-tsconfig-paths";
 
-export default defineConfig(({ command }) => ({
+export default defineConfig({
   plugins: [
     tailwindcss(),
     tsConfigPaths({ projects: ["./tsconfig.json"] }),
@@ -21,7 +20,6 @@ export default defineConfig(({ command }) => ({
       server: { entry: "server" },
       spa: { enabled: true },
     }),
-    ...(command === "build" ? [nitro()] : []),
     viteReact(),
   ],
   css: { transformer: "lightningcss" },
@@ -47,4 +45,4 @@ export default defineConfig(({ command }) => ({
     ignoreOutdatedRequests: true,
   },
   server: { host: "::", port: 8080 },
-}));
+});

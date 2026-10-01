@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
+    "postbuild": "node scripts/copy-shell.mjs",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
@@ -68,6 +69,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.32.0",
+    "@tauri-apps/cli": "^2.12.1",
     "@types/node": "^22.16.5",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
