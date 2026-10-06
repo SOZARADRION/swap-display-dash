@@ -60,6 +60,7 @@ function AuthPage() {
       provider: "google",
       options: {
         redirectTo: `${window.location.origin}/novo`,
+        queryParams: { prompt: "select_account" },
       },
     });
     if (error) toast.error("Erro no login com Google");
