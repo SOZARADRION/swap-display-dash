@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { AccessRestricted } from "@/components/access-restricted";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -26,8 +27,14 @@ const STATUS_LABEL: Record<string, string> = {
 
 export const Route = createFileRoute("/_authenticated/historico")({
   head: () => ({ meta: [{ title: "Histórico de Alterações" }] }),
-  component: Historico,
+  beforeLoad: ({ context }) => ({ isAdmin: context.role === "admin" }),
+  component: HistoricoRoute,
 });
+
+function HistoricoRoute() {
+  const { isAdmin } = Route.useRouteContext();
+  return isAdmin ? <Historico /> : <AccessRestricted message="Acesso restrito a administradores e gerentes." />;
+}
 
 function Historico() {
   const navigate = useNavigate();

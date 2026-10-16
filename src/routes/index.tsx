@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { useAppAccess } from "@/hooks/use-app-access";
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 import { Button } from "@/components/ui/button";
@@ -37,7 +38,7 @@ const COLUMNS = [
 
 function Monitor() {
   const [requests, setRequests] = useState<Request[]>([]);
-  const [authed, setAuthed] = useState(false);
+  const access = useAppAccess();
 
   const [soundOn, setSoundOn] = useState(true);
 
@@ -67,6 +68,11 @@ function Monitor() {
   };
 
   useEffect(() => {
+    if (!access.isAuthenticated) {
+      setRequests([]);
+      return;
+    }
+
     let mounted = true;
     let firstLoad = true;
     const knownIds = new Set<string>();
@@ -90,9 +96,6 @@ function Monitor() {
     };
     load();
 
-    supabase.auth.getSession().then(({ data }) => setAuthed(!!data.session));
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setAuthed(!!s));
-
     const channel = supabase
       .channel("equipment_requests_monitor")
       .on(
@@ -105,9 +108,8 @@ function Monitor() {
     return () => {
       mounted = false;
       supabase.removeChannel(channel);
-      sub.subscription.unsubscribe();
     };
-  }, [soundOn]);
+  }, [access.isAuthenticated, soundOn]);
 
 
   return (
@@ -135,20 +137,34 @@ function Monitor() {
             </Button>
 
             <Button asChild variant="ghost"><Link to="/alugueis">Aluguéis</Link></Button>
-            {authed ? (
+            {access.isAuthenticated && access.role === "admin" ? (
               <>
                 <Button asChild variant="outline"><Link to="/novo">Novo pedido</Link></Button>
                 <Button asChild variant="ghost"><Link to="/gerenciar">Gerenciar</Link></Button>
                 <Button asChild variant="ghost"><Link to="/historico">Histórico</Link></Button>
               </>
-            ) : (
+            ) : !access.isAuthenticated && !access.isLoading ? (
               <Button asChild><Link to="/auth">Entrar</Link></Button>
+            ) : null}
+            {access.isAuthenticated && access.hasEmailProvider && (
+              <Button asChild variant="ghost"><Link to="/minha-conta">Minha conta</Link></Button>
+            )}
+            {access.isOwner && (
+              <Button asChild variant="ghost"><Link to="/usuarios">Usuários</Link></Button>
             )}
           </div>
         </div>
       </header>
 
       <main className="mx-auto max-w-[1800px] px-6 py-6">
+        {access.isLoading ? (
+          <p className="text-center text-sm text-muted-foreground py-10">Verificando sessão...</p>
+        ) : !access.isAuthenticated ? (
+          <section className="flex min-h-[50vh] flex-col items-center justify-center gap-4 text-center">
+            <p className="text-muted-foreground">Entre para ver os pedidos</p>
+            <Button asChild><Link to="/auth">Entrar</Link></Button>
+          </section>
+        ) : (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {COLUMNS.map((col) => {
             const items = requests.filter((r) => r.status === col.key);
@@ -188,6 +204,7 @@ function Monitor() {
             );
           })}
         </div>
+        )}
       </main>
     </div>
   );

@@ -1,5 +1,6 @@
-import { createFileRoute, Link, redirect, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
+import { AccessRestricted } from "@/components/access-restricted";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,11 +21,14 @@ const schema = z.object({
 
 export const Route = createFileRoute("/_authenticated/novo")({
   head: () => ({ meta: [{ title: "Novo Pedido — Troca de Equipamentos" }] }),
-  beforeLoad: ({ context }) => {
-    if (context.role !== "admin") throw redirect({ to: "/" });
-  },
-  component: NovoPedido,
+  beforeLoad: ({ context }) => ({ isAdmin: context.role === "admin" }),
+  component: NovoPedidoRoute,
 });
+
+function NovoPedidoRoute() {
+  const { isAdmin } = Route.useRouteContext();
+  return isAdmin ? <NovoPedido /> : <AccessRestricted message="Acesso restrito a administradores e gerentes." />;
+}
 
 function NovoPedido() {
   const navigate = useNavigate();

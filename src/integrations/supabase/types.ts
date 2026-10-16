@@ -14,6 +14,24 @@ export type Database = {
   }
   public: {
     Tables: {
+      app_owners: {
+        Row: {
+          created_at: string
+          singleton: boolean
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          singleton?: boolean
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          singleton?: boolean
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -118,7 +136,31 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      list_users_with_roles: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          created_at: string
+          email: string | null
+          has_email_provider: boolean
+          id: string
+          is_owner: boolean
+          role: Database["public"]["Enums"]["app_role"]
+        }[]
+      }
+      reset_user_password: {
+        Args: {
+          new_password: string
+          target_user: string
+        }
+        Returns: undefined
+      }
+      set_user_role: {
+        Args: {
+          new_role: Database["public"]["Enums"]["app_role"]
+          target_user: string
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       app_role: "admin" | "tecnico"

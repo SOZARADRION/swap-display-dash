@@ -1,6 +1,7 @@
-import { createFileRoute, Link, redirect, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { AccessRestricted } from "@/components/access-restricted";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -22,11 +23,14 @@ type Request = {
 
 export const Route = createFileRoute("/_authenticated/gerenciar")({
   head: () => ({ meta: [{ title: "Gerenciar Pedidos" }] }),
-  beforeLoad: ({ context }) => {
-    if (context.role !== "admin") throw redirect({ to: "/" });
-  },
-  component: Gerenciar,
+  beforeLoad: ({ context }) => ({ isAdmin: context.role === "admin" }),
+  component: GerenciarRoute,
 });
+
+function GerenciarRoute() {
+  const { isAdmin } = Route.useRouteContext();
+  return isAdmin ? <Gerenciar /> : <AccessRestricted message="Acesso restrito a administradores e gerentes." />;
+}
 
 function Gerenciar() {
   const navigate = useNavigate();
