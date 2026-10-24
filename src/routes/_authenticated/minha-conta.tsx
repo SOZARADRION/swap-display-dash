@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { AccessRestricted } from "@/components/access-restricted";
+import { SignOutButton } from "@/components/sign-out-button";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -18,7 +19,12 @@ function MinhaContaRoute() {
   const { hasEmailProvider } = Route.useRouteContext();
   return hasEmailProvider
     ? <MinhaConta />
-    : <AccessRestricted message="A alteração de senha está disponível apenas para contas com e-mail e senha." />;
+    : (
+      <AccessRestricted
+        message="A alteração de senha está disponível apenas para contas com e-mail e senha."
+        action={<SignOutButton />}
+      />
+    );
 }
 
 function MinhaConta() {
@@ -55,7 +61,10 @@ function MinhaConta() {
   return (
     <main className="min-h-screen bg-muted/30 p-4">
       <div className="mx-auto max-w-xl">
-        <Button asChild variant="ghost" className="mb-4"><Link to="/">← Voltar ao monitor</Link></Button>
+        <div className="mb-4 flex items-center justify-between">
+          <Button asChild variant="ghost"><Link to="/">← Voltar ao monitor</Link></Button>
+          <SignOutButton />
+        </div>
         <Card>
           <CardHeader>
             <CardTitle>Minha conta</CardTitle>

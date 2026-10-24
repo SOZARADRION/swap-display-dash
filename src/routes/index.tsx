@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { SignOutButton } from "@/components/sign-out-button";
 import { Clock, Wrench, CheckCircle2, Building2, User, Volume2, VolumeX } from "lucide-react";
 
 type Request = {
@@ -149,6 +150,7 @@ function Monitor() {
             {access.isAuthenticated && access.hasEmailProvider && (
               <Button asChild variant="ghost"><Link to="/minha-conta">Minha conta</Link></Button>
             )}
+            {access.isAuthenticated && <SignOutButton />}
             {access.isOwner && (
               <Button asChild variant="ghost"><Link to="/usuarios">Usuários</Link></Button>
             )}

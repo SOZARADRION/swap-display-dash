@@ -4,6 +4,7 @@ import { useAppAccess } from "@/hooks/use-app-access";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { SignOutButton } from "@/components/sign-out-button";
 import { Clock, Truck, CheckCircle2, Building2, User, Volume2, VolumeX } from "lucide-react";
 
 type Request = {
@@ -146,6 +147,7 @@ function MonitorAlugueis() {
             {access.isAuthenticated && access.hasEmailProvider && (
               <Button asChild variant="ghost"><Link to="/minha-conta">Minha conta</Link></Button>
             )}
+            {access.isAuthenticated && <SignOutButton />}
             {access.isOwner && (
               <Button asChild variant="ghost"><Link to="/usuarios">Usuários</Link></Button>
             )}
