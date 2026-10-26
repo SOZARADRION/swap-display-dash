@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 import { Toaster } from "@/components/ui/sonner";
+import { AppUpdaterProvider } from "@/components/app-updater";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -79,7 +80,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Pedidos de Troca de Equipamentos" },
-      { name: "description", content: "Sistema para registrar e acompanhar pedidos de troca de equipamentos em tempo real." },
+      {
+        name: "description",
+        content:
+          "Sistema para registrar e acompanhar pedidos de troca de equipamentos em tempo real.",
+      },
       { property: "og:title", content: "Pedidos de Troca de Equipamentos" },
       { property: "og:description", content: "Monitor kanban em tempo real dos pedidos de troca." },
       { property: "og:type", content: "website" },
@@ -118,8 +123,10 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
-      <Toaster />
+      <AppUpdaterProvider>
+        <Outlet />
+        <Toaster />
+      </AppUpdaterProvider>
     </QueryClientProvider>
   );
 }

@@ -1,7 +1,7 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "Swap Display Dash",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "identifier": "com.minhaempresa.swapdisplaydash",
   "build": {
     "frontendDist": "../dist/client",
@@ -25,6 +25,7 @@
   },
   "bundle": {
     "active": true,
+    "createUpdaterArtifacts": true,
     "targets": "all",
     "icon": [
       "icons/32x32.png",
@@ -35,6 +36,17 @@
     ],
     "android": {
       "debugApplicationIdSuffix": ".debug"
+    }
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDI3NDY5OTg0MkVGRTY4MkQKUldRdGFQNHVoSmxHSjVUWWs3SkVxUE9yTkhHQzNRcVA3WkNCKzVQRW1WYThrWno3OVliSjBUUkkK",
+      "endpoints": [
+        "https://github.com/SOZARADRION/swap-display-dash/releases/latest/download/latest.json"
+      ],
+      "windows": {
+        "installMode": "passive"
+      }
     }
   }
 }

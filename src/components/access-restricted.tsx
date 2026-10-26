@@ -11,7 +11,7 @@ export function AccessRestricted({ message, action }: { message: string; action?
           <CardTitle>Acesso restrito</CardTitle>
           <CardDescription>{message}</CardDescription>
         </CardHeader>
-        <CardContent className={action ? "flex gap-2" : undefined}>
+        <CardContent className={action ? "space-y-3" : undefined}>
           <Button asChild>
             <Link to="/">Voltar ao monitor</Link>
           </Button>

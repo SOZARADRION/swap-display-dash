@@ -1,5 +1,6 @@
 {
   "name": "tanstack_start_ts",
+  "version": "0.2.0",
   "private": true,
   "sideEffects": false,
   "type": "module",
@@ -46,6 +47,9 @@
     "@tanstack/react-router": "^1.170.16",
     "@tanstack/react-start": "^1.168.26",
     "@tanstack/router-plugin": "^1.168.18",
+    "@tauri-apps/api": "^2.12.4",
+    "@tauri-apps/plugin-process": "^2.4.0",
+    "@tauri-apps/plugin-updater": "^2.14.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
