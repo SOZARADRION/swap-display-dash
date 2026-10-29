@@ -15,7 +15,8 @@
     "desktop:dev": "tauri dev",
     "desktop:build": "tauri build",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "tauri": "tauri"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
