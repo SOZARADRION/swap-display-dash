@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="340" viewBox="0 0 1200 340" role="img" aria-labelledby="title desc">
+  <title id="title">Swap Display Dash</title><desc id="desc">Operação à vista. Gestão de pedidos de troca e aluguel de equipamentos.</desc>
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0F172A"/><stop offset="1" stop-color="#312E81"/></linearGradient></defs>
+  <rect width="1200" height="340" rx="24" fill="url(#bg)"/>
+  <text x="64" y="74" fill="#C4B5FD" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="600" letter-spacing="3">VISIBILIDADE PARA A OPERAÇÃO</text>
+  <text x="60" y="155" fill="#F8FAFC" font-family="Segoe UI,Arial,sans-serif" font-size="58" font-weight="700">Swap Display Dash</text>
+  <text x="64" y="211" fill="#E2E8F0" font-family="Segoe UI,Arial,sans-serif" font-size="28">Pedidos organizados. Operação à vista.</text>
+  <text x="64" y="280" fill="#CBD5E1" font-family="Segoe UI,Arial,sans-serif" font-size="17">Trocas e aluguéis · Kanban · Web e desktop</text>
+  <rect x="836" y="84" width="96" height="178" rx="12" fill="#FFFFFF" opacity=".07"/>
+  <rect x="946" y="84" width="96" height="178" rx="12" fill="#FFFFFF" opacity=".07"/>
+  <rect x="1056" y="84" width="96" height="178" rx="12" fill="#FFFFFF" opacity=".07"/>
+  <path d="M854 108H914" stroke="#FBBF24" stroke-width="5" stroke-linecap="round"/>
+  <path d="M964 108H1024" stroke="#60A5FA" stroke-width="5" stroke-linecap="round"/>
+  <path d="M1074 108H1134" stroke="#34D399" stroke-width="5" stroke-linecap="round"/>
+  <g fill="#E2E8F0" opacity=".85"><rect x="850" y="130" width="68" height="42" rx="6"/><rect x="850" y="184" width="68" height="42" rx="6"/><rect x="960" y="130" width="68" height="58" rx="6"/><rect x="1070" y="130" width="68" height="42" rx="6"/></g>
+</svg>

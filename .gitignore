@@ -32,3 +32,9 @@ dist-ssr
 *.sw?
 
 .env
+.env.*
+!.env.example
+
+# Rust / Tauri: artefatos locais de compilacao
+src-tauri/target/
+src-tauri/gen/schemas/
