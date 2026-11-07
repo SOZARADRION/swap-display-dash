@@ -23,7 +23,7 @@ import { KeyRound } from "lucide-react";
 type UserWithRole = {
   id: string;
   email: string | null;
-  role: Enums<"app_role">;
+  role: Enums<"app_role"> | null;
   created_at: string;
   has_email_provider: boolean;
   is_owner: boolean;
@@ -183,16 +183,24 @@ function Usuarios() {
                     Cadastro: {new Date(listedUser.created_at).toLocaleString("pt-BR")}
                   </p>
                 </div>
-                <Badge variant={listedUser.role === "admin" ? "default" : "secondary"}>
-                  {listedUser.role}
+                <Badge
+                  variant={
+                    listedUser.role === "admin"
+                      ? "default"
+                      : listedUser.role === null
+                        ? "outline"
+                        : "secondary"
+                  }
+                >
+                  {listedUser.role ?? "pendente"}
                 </Badge>
                 <Select
-                  value={listedUser.role}
+                  value={listedUser.role ?? undefined}
                   onValueChange={(value) => void changeRole(listedUser, value as Enums<"app_role">)}
                   disabled={isCurrentUser || isSaving || isResetting}
                 >
                   <SelectTrigger className="w-full sm:w-[160px]">
-                    <SelectValue />
+                    <SelectValue placeholder="Aprovar como..." />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="admin">admin</SelectItem>

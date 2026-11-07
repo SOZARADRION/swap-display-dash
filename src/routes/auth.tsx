@@ -41,7 +41,7 @@ function AuthPage() {
           options: { emailRedirectTo: window.location.origin },
         });
         if (error) throw error;
-        toast.success("Cadastro criado! Você já pode entrar.");
+        toast.success("Cadastro criado! Seu acesso aos pedidos depende de aprovação.");
         setMode("signin");
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
