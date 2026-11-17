@@ -6,9 +6,9 @@
 
 Painel web e aplicativo desktop para acompanhar solicitações de troca e aluguel de equipamentos.
 
-### [⬇ Baixar instalador para Windows](https://github.com/SOZARADRION/swap-display-dash/releases)
+### [⬇ Baixar instalador v0.2.0 para Windows 64 bits (.exe)](https://github.com/SOZARADRION/swap-display-dash/releases/download/v0.2.0/Swap.Display.Dash_0.2.0_x64-setup.exe)
 
-[Como instalar](#instalar-no-windows) · [Executar em desenvolvimento](#executar-no-windows) · [Funcionalidades](#funcionalidades) · [Arquitetura](docs/architecture.md) · [Desktop e releases](docs/desktop.md)
+[Todas as versões](https://github.com/SOZARADRION/swap-display-dash/releases) · [Como instalar](#instalar-no-windows) · [Executar em desenvolvimento](#executar-no-windows) · [Funcionalidades](#funcionalidades) · [Arquitetura](docs/architecture.md) · [Desktop e releases](docs/desktop.md)
 
 ![React](https://img.shields.io/badge/React-19-087EA4?style=flat-square&logo=react&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-Strict-3178C6?style=flat-square&logo=typescript&logoColor=white)
@@ -20,11 +20,10 @@ Painel web e aplicativo desktop para acompanhar solicitações de troca e alugue
 
 ## Instalar no Windows
 
-1. Abra [Releases](https://github.com/SOZARADRION/swap-display-dash/releases) e selecione a versão publicada mais recente.
-2. Em **Assets** (Arquivos), baixe o instalador com nome terminado em `-setup.exe`.
-3. Abra o arquivo baixado e siga as instruções do instalador.
+1. Baixe o [instalador v0.2.0 para Windows 64 bits](https://github.com/SOZARADRION/swap-display-dash/releases/download/v0.2.0/Swap.Display.Dash_0.2.0_x64-setup.exe).
+2. Abra `Swap.Display.Dash_0.2.0_x64-setup.exe` e siga as instruções do instalador.
 
-Se a página de Releases estiver vazia, o instalador ainda aguarda publicação.
+Para consultar as notas da versão e outros arquivos, abra a [release v0.2.0](https://github.com/SOZARADRION/swap-display-dash/releases/tag/v0.2.0).
 
 ## O projeto
 
