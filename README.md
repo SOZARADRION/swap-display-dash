@@ -6,7 +6,9 @@
 
 Painel web e aplicativo desktop para acompanhar solicitações de troca e aluguel de equipamentos.
 
-[Começar](#executar-no-windows) · [Funcionalidades](#funcionalidades) · [Arquitetura](docs/architecture.md) · [Desktop e releases](docs/desktop.md)
+### [⬇ Baixar instalador para Windows](https://github.com/SOZARADRION/swap-display-dash/releases)
+
+[Como instalar](#instalar-no-windows) · [Executar em desenvolvimento](#executar-no-windows) · [Funcionalidades](#funcionalidades) · [Arquitetura](docs/architecture.md) · [Desktop e releases](docs/desktop.md)
 
 ![React](https://img.shields.io/badge/React-19-087EA4?style=flat-square&logo=react&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-Strict-3178C6?style=flat-square&logo=typescript&logoColor=white)
@@ -15,6 +17,14 @@ Painel web e aplicativo desktop para acompanhar solicitações de troca e alugue
 [![Quality](https://github.com/SOZARADRION/swap-display-dash/actions/workflows/quality.yml/badge.svg)](https://github.com/SOZARADRION/swap-display-dash/actions/workflows/quality.yml)
 
 </div>
+
+## Instalar no Windows
+
+1. Abra [Releases](https://github.com/SOZARADRION/swap-display-dash/releases) e selecione a versão publicada mais recente.
+2. Em **Assets** (Arquivos), baixe o instalador com nome terminado em `-setup.exe`.
+3. Abra o arquivo baixado e siga as instruções do instalador.
+
+Se a página de Releases estiver vazia, o instalador ainda aguarda publicação.
 
 ## O projeto
 
