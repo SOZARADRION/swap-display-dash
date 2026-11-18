@@ -23,7 +23,7 @@ Após alterar as variáveis, reinicie o servidor de desenvolvimento. Builds já 
 3. Configure autenticação por e-mail e, se necessário, o provedor Google.
 4. Configure os redirecionamentos permitidos para o ambiente local e para o ambiente de implantação. O código usa a origem atual para compor redirecionamentos.
 5. Verifique as tabelas, políticas RLS, funções de gestão e acesso a Realtime.
-6. Prepare os papéis de teste de acordo com as migrações. Um cadastro novo não equivale automaticamente a um administrador ou proprietário.
+6. Prepare os papéis de teste de acordo com as migrações. Um cadastro novo fica pendente, sem acesso aos pedidos, até o proprietário atribuir um papel na tela Usuários.
 
 As migrações alteram permissões e estruturas do banco. A revisão deste repositório não aplica mudanças em um banco remoto nem cria usuários de produção.
 

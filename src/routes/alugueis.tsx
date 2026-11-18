@@ -163,6 +163,10 @@ function MonitorAlugueis() {
             <p className="text-muted-foreground">Entre para ver os pedidos</p>
             <Button asChild><Link to="/auth">Entrar</Link></Button>
           </section>
+        ) : access.isPendingApproval ? (
+          <section className="flex min-h-[50vh] flex-col items-center justify-center gap-4 text-center">
+            <p className="text-muted-foreground">Sua conta está aguardando aprovação.</p>
+          </section>
         ) : (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {COLUMNS.map((col) => {

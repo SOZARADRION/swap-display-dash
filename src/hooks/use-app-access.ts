@@ -8,6 +8,7 @@ type AppAccess = {
   isAuthenticated: boolean;
   userId: string | null;
   role: Enums<"app_role"> | null;
+  isPendingApproval: boolean;
   isOwner: boolean;
   hasEmailProvider: boolean;
 };
@@ -17,6 +18,7 @@ const initialAccess: AppAccess = {
   isAuthenticated: false,
   userId: null,
   role: null,
+  isPendingApproval: false,
   isOwner: false,
   hasEmailProvider: false,
 };
@@ -48,6 +50,7 @@ export function useAppAccess() {
           isAuthenticated: true,
           userId,
           role: null,
+          isPendingApproval: false,
           isOwner: false,
           hasEmailProvider: false,
         });
@@ -64,7 +67,8 @@ export function useAppAccess() {
         isLoading: false,
         isAuthenticated: true,
         userId,
-        role: roleResult.data?.role ?? "tecnico",
+        role: roleResult.data?.role ?? null,
+        isPendingApproval: !roleResult.error && roleResult.data === null,
         isOwner: ownerResult.data !== null,
         hasEmailProvider: hasEmailProvider(user),
       });

@@ -144,7 +144,7 @@ export type Database = {
           has_email_provider: boolean
           id: string
           is_owner: boolean
-          role: Database["public"]["Enums"]["app_role"]
+          role: Database["public"]["Enums"]["app_role"] | null
         }[]
       }
       reset_user_password: {

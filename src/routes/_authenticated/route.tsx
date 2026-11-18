@@ -16,7 +16,7 @@ export const Route = createFileRoute("/_authenticated")({
     ]);
     return {
       user: data.user,
-      role: roleData?.role ?? "tecnico",
+      role: roleData?.role ?? null,
       isOwner: ownerData !== null,
       hasEmailProvider: Array.isArray(data.user.app_metadata?.providers)
         ? data.user.app_metadata.providers.includes("email")
