@@ -46,3 +46,17 @@ jobs:
           prerelease: false
           args: --bundles nsis
           updaterJsonPreferNsis: true
+
+      # releaseBody acima também vira o texto do aviso dentro do app, que mostra
+      # texto puro. As notas em Markdown são aplicadas só à página da release.
+      - name: Publish fixed-name installer and release notes
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.ref_name }}
+          OUT: ${{ runner.temp }}/release-extra
+        run: |
+          node scripts/prepare-release.mjs "$TAG" "$GITHUB_REPOSITORY" "$OUT"
+          gh api "repos/$GITHUB_REPOSITORY/releases/generate-notes" -f tag_name="$TAG" --jq .body >> "$OUT/notes.md"
+          gh release upload "$TAG" "$OUT/SwapDisplayDash-Setup.exe" --clobber
+          gh release edit "$TAG" --notes-file "$OUT/notes.md"

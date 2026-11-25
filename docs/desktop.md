@@ -33,6 +33,12 @@ O Tauri executa `npm run build` e utiliza `dist/client`. Instaladores com atuali
 O workflow `.github/workflows/release.yml` é acionado por tags `v*`.
 Ele usa Windows, Node.js 24, Rust e a ação oficial do Tauri para gerar um instalador NSIS e um **rascunho** de release. Criar uma tag inicia esse processo; esta organização documental não cria tags nem publica instaladores.
 
+Depois do build, o workflow anexa uma cópia com nome fixo, `SwapDisplayDash-Setup.exe`, e aplica as notas de `.github/release-notes.md`. A partir da primeira release publicada com esse arquivo, este link sempre baixa a versão mais recente:
+
+`https://github.com/SOZARADRION/swap-display-dash/releases/latest/download/SwapDisplayDash-Setup.exe`
+
+Só então troque os links de download do README por ele. Não use esse nome no atualizador, que continua com os arquivos versionados.
+
 Variáveis do repositório usadas pelo workflow:
 
 - `SUPABASE_URL`
