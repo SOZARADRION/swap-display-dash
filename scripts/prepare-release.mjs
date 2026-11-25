@@ -33,5 +33,4 @@ const notes = template
   .replaceAll("{{TAG}}", tag)
   .replaceAll("{{VERSION}}", version)
   .replaceAll("{{REPOSITORY}}", repository);
-await writeFile(join(outputDir, "notes.md"), `${notes}
-`);
+await writeFile(join(outputDir, "notes.md"), notes + "\n");
