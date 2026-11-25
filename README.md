@@ -6,9 +6,11 @@
 
 Painel web e aplicativo desktop para acompanhar solicitações de troca e aluguel de equipamentos.
 
-### [⬇ Baixar instalador v0.2.0 para Windows 64 bits (.exe)](https://github.com/SOZARADRION/swap-display-dash/releases/download/v0.2.0/Swap.Display.Dash_0.2.0_x64-setup.exe)
+[![Baixar para Windows](https://img.shields.io/badge/Baixar_para_Windows-64_bits-047857?style=for-the-badge)](https://github.com/SOZARADRION/swap-display-dash/releases/download/v0.2.0/Swap.Display.Dash_0.2.0_x64-setup.exe)
 
-[Todas as versões](https://github.com/SOZARADRION/swap-display-dash/releases) · [Como instalar](#instalar-no-windows) · [Executar em desenvolvimento](#executar-no-windows) · [Funcionalidades](#funcionalidades) · [Arquitetura](docs/architecture.md) · [Desktop e releases](docs/desktop.md)
+[![Versão mais recente](https://img.shields.io/github/v/release/SOZARADRION/swap-display-dash?label=vers%C3%A3o%20mais%20recente)](https://github.com/SOZARADRION/swap-display-dash/releases/latest)
+
+[**DOWNLOADS**](https://github.com/SOZARADRION/swap-display-dash/releases) · [Como instalar](#instalar-no-windows) · [Executar em desenvolvimento](#executar-no-windows) · [Funcionalidades](#funcionalidades) · [Arquitetura](docs/architecture.md) · [Desktop e releases](docs/desktop.md)
 
 ![React](https://img.shields.io/badge/React-19-087EA4?style=flat-square&logo=react&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-Strict-3178C6?style=flat-square&logo=typescript&logoColor=white)
@@ -22,6 +24,7 @@ Painel web e aplicativo desktop para acompanhar solicitações de troca e alugue
 
 1. Baixe o [instalador v0.2.0 para Windows 64 bits](https://github.com/SOZARADRION/swap-display-dash/releases/download/v0.2.0/Swap.Display.Dash_0.2.0_x64-setup.exe).
 2. Abra `Swap.Display.Dash_0.2.0_x64-setup.exe` e siga as instruções do instalador.
+3. Se o Windows mostrar um aviso do SmartScreen, confirme que o arquivo veio deste repositório e escolha **Mais informações → Executar assim mesmo**. O instalador ainda não tem certificado de assinatura de código.
 
 Para consultar as notas da versão e outros arquivos, abra a [release v0.2.0](https://github.com/SOZARADRION/swap-display-dash/releases/tag/v0.2.0).
 
